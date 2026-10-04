@@ -161,7 +161,11 @@ input?.addEventListener("input",e=>{
  clearTimeout(timer);timer=setTimeout(async()=>{
   const q=e.target.value.trim();
   if(q.length<2){results.innerHTML="";return;}
-  try{const res=await fetch("/api/search?q="+encodeURIComponent(q));const data=await res.json();results.innerHTML=data.map(d=>`<a class="search-item" href="/${d.slug}">${d.title}</a>`).join("");}catch{results.innerHTML="";}
+  try{
+   const res=await fetch("/api/search?q="+encodeURIComponent(q));
+   const data=await res.json();
+   results.innerHTML=data.map(d=>'<a class="search-item" href="/'+d.slug+'">'+d.title+'</a>').join("");
+  }catch{results.innerHTML="";}
  },300);
 });
 const buttons=document.querySelectorAll("[data-category-filter]");
